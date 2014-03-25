@@ -1,0 +1,13 @@
+{
+  "name": "Weather Watcher",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "*",
+    "jade": "*",
+    "underscore": "*"
+  },
+  "engines": {
+    "node": "0.10.17",
+    "npm": "1.3.x"
+  }
+}

@@ -1,0 +1,21 @@
+// Jade
+extends layout
+
+block content
+    div.container
+        div.row
+            if response.error
+                h2=response.error.description
+            else
+                h1=city + ' - ' + country
+                div.row
+                    each day in forecast.simpleforecast.forecastday
+                        div(class='col-lg-3 col-sm-4 col-xs-6')
+                            p
+                                span
+                                    img(class='thumbnail img-responsive', src=day.icon_url)
+                                span
+                                    h3=day.date.weekday
+                            p
+                                span=day.high.celsius + ' C - '
+                                span=day.low.celsius + ' C'
