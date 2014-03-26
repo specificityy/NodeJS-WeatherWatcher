@@ -1,5 +1,6 @@
 var _ = require('underscore');
 
+// list of "in" animations from animate.css
 var animationsArray = ['bounce', 'flash', 'pulse', 'rubberBand', 'shake', 'swing', 'tada', 'wobble', 'bounceIn',
    'bounceInDown', 'bounceInLeft', 'bounceInRight', 'bounceInUp', 'fadeIn', 'fadeInDown',
    'fadeInDownBig', 'fadeInLeft', 'fadeInLeftBig', 'fadeInRight', 'fadeInRightBig', 'fadeInUp',
@@ -7,17 +8,19 @@ var animationsArray = ['bounce', 'flash', 'pulse', 'rubberBand', 'shake', 'swing
    'rotateInDownLeft', 'rotateInDownRight', 'rotateInUpLeft', 'rotateInUpRight', 'slideInDown',
    'slideInLeft', 'slideInRight', 'rollIn'];
 
+// gets 9 random animations from the array to apply on different parts of the page
 function getAnimations() {
    var ret = [];
-   for(var i = 0; i < 9; i++)
-   {
+   for(var i = 0; i < 9; i++) {
       ret.push(animationsArray[Math.floor(Math.random() * (animationsArray.length))]);
    }
    return ret.toString();
 }
 
+// the module export
 exports.index = function (req, res, http) {
 
+   // options for accessing the Wunderground api
    var options = {
       host: 'api.wunderground.com',
       port: 80,
@@ -25,6 +28,7 @@ exports.index = function (req, res, http) {
       method: 'GET'
    };
 
+   // makes the request
    http.request(options, function (httpResponse) {
       console.log('STATUS: ' + httpResponse.statusCode);
       console.log('HEADERS: ' + JSON.stringify(httpResponse.headers));
@@ -32,6 +36,7 @@ exports.index = function (req, res, http) {
 
       var buffer = '';
 
+      // the data event is triggered for every network package received so we need to append to get the full result
       httpResponse.on('data', function (chunk) {
          buffer += chunk;
       });
@@ -40,6 +45,7 @@ exports.index = function (req, res, http) {
          console.log('ERROR: ' + err);
       });
 
+      // in the end, render the view passing it the result data
       httpResponse.on('end', function () {
          var jsonBuffer = JSON.parse(buffer);
 

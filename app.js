@@ -1,7 +1,8 @@
 var express = require('express')
   , routes = require('./routes')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , url = require('url');
 
 var app = express();
 
@@ -14,9 +15,12 @@ app.configure(function () {
 });
 
 app.get('/', function (req, res) {
-   req.params.countryCd = 'UK';
-   req.params.city = 'London';
-   routes.index(req, res, http);
+   
+   res.writeHead(307, {
+      Location: '/UK/London'
+   });
+
+   res.end();
 });
 
 app.get('/:countryCd/:city', function (req, res) {
