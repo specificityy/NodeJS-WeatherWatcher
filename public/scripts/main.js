@@ -9,7 +9,7 @@ var mainScript = function () {
 
          if (type.indexOf("country") != -1 || type.indexOf("locality") != -1) {
             if (!isNullOrWhitespace(shortname)) {
-               ret.push(shortname);
+               ret.push(shortname.replace(' ', '_'));
             } else {
                ret.push(longname.replace(' ', '_'));
             }
