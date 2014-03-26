@@ -16,4 +16,4 @@ For a live preview:
 
 http://nodejsweatherwatcher.herokuapp.com/
 
-The routing works like: domain/country/city, e.g. http://nodejsweatherwatcher.herokuapp.com//It/Milan
+The routing works like: domain/country/city, e.g. http://nodejsweatherwatcher.herokuapp.com//do/santo_domingo
