@@ -1,5 +1,21 @@
 var _ = require('underscore');
 
+var animationsArray = ['bounce', 'flash', 'pulse', 'rubberBand', 'shake', 'swing', 'tada', 'wobble', 'bounceIn',
+   'bounceInDown', 'bounceInLeft', 'bounceInRight', 'bounceInUp', 'fadeIn', 'fadeInDown',
+   'fadeInDownBig', 'fadeInLeft', 'fadeInLeftBig', 'fadeInRight', 'fadeInRightBig', 'fadeInUp',
+   'fadeInUpBig', 'flip', 'flipInX', 'flipInY', 'lightSpeedIn', 'rotateIn',
+   'rotateInDownLeft', 'rotateInDownRight', 'rotateInUpLeft', 'rotateInUpRight', 'slideInDown',
+   'slideInLeft', 'slideInRight', 'rollIn'];
+
+function getAnimations() {
+   var ret = [];
+   for(var i = 0; i < 9; i++)
+   {
+      ret.push(animationsArray[Math.floor(Math.random() * (animationsArray.length))]);
+   }
+   return ret.toString();
+}
+
 exports.index = function (req, res, http) {
 
    var options = {
@@ -8,8 +24,6 @@ exports.index = function (req, res, http) {
       path: '/api/ca7fac1777f1cb6f/forecast/q/' + req.params.countryCd + '/' + req.params.city + '.json',
       method: 'GET'
    };
-
-   var ret;
 
    http.request(options, function (httpResponse) {
       console.log('STATUS: ' + httpResponse.statusCode);
@@ -29,7 +43,10 @@ exports.index = function (req, res, http) {
       httpResponse.on('end', function () {
          var jsonBuffer = JSON.parse(buffer);
 
-         var finalJson = _.extend(jsonBuffer, { country: req.params.countryCd, city: req.params.city, title: 'NodeJS Weather Watcher' });
+         var city = req.params.city.substring(0, 1).toUpperCase() + req.params.city.substring(1).toLowerCase();
+         var country = req.params.countryCd.toUpperCase();
+
+         var finalJson = _.extend(jsonBuffer, { country: country, city: city, title: 'NodeJS Weather Watcher', animationsArray: getAnimations() });
 
          res.render('index', finalJson);
       });

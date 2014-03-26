@@ -1,0 +1,13 @@
+body {
+   padding-top: 60px;
+}
+
+.containerDiv {
+   margin-top: 20px;
+}
+
+.weatherIcon {
+   display: inline;
+   margin-right: 10px;
+   margin-bottom: -5px;
+}
