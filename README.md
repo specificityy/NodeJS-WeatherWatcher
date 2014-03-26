@@ -1,7 +1,7 @@
 NodeJS-WeatherWatcher
 =====================
 
-A simple weather watcher app built with Node, Express, Jade and Bootstrap.
+A simple weather watcher app using Node, Express, Jade, Animate.CSS and Bootstrap.
 
 Weather data is pulled through the Wunderground API.
 
