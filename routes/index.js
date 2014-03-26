@@ -19,7 +19,7 @@ function getAnimations() {
 
 // the module export
 exports.index = function (req, res, http) {
-
+   
    // options for accessing the Wunderground api
    var options = {
       host: 'api.wunderground.com',

@@ -11,7 +11,7 @@ var mainScript = function () {
             if (!isNullOrWhitespace(shortname)) {
                ret.push(shortname);
             } else {
-               ret.push(longname);
+               ret.push(longname.replace(' ', '_'));
             }
          }
          if (ret.length == 2)
@@ -48,10 +48,8 @@ var mainScript = function () {
          });
       },
 
-      locationError: function error(msg) {
-         console.log(msg);
+      locationError: function error(msg) {         
          showErrorText();
-
       },
 
       showError: function () {
