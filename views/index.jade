@@ -4,30 +4,46 @@ block content
    div.container
       div.row
          - if (!forecast)
-            - var error = response.error ? response.error.description : 'No cities match your search query';
-            h2 #{error}
+            - var error = response && response.error && response.error.description ? response.error.description : 'No cities match your search query';
+            - error += '. Try adding something like /IT/Milan after the hostname.'
+
+            |<script>
+            | mainScript.showError();
+            |</script>
+            
+            h2#h2Error.hideBlock=error
          - else
-            - var animations = animationsArray.split(',');
             - var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
             - var today = new Date();
             - var weekday = days[ today.getDay() ];
-            - var count = 0;
+            - var animations = animationsArray.split(',');
+            - var animationInex = 0;
+            - var itemIndex = 0;
 
-            h1(class='animated #{animations[count]}')=city + ' - ' + country            
-            - count++;
+            h1(class='animated #{animations[animationInex]}')=city + ' - ' + country
+            - animationInex++;
 
             mixin item(day)
-               div(class='col-lg-3 col-sm-4 col-xs-6 animated #{animations[count]}')
-                     p
-                        img(class='thumbnail img-responsive weatherIcon', src=day.icon_url)
-                        =day.conditions
-                     div(class='animated #{animations[count]}')
-                        - count++
-                        h3=weekday == day.date.weekday ? 'Now' : day.date.weekday
-                        h4
-                           =day.high.celsius + ' C - '
-                           =day.low.celsius + ' C'
+               div(class='col-lg-3 col-sm-4 col-xs-6 animated #{animations[animationInex]}')
+                  div(class='panel panel-default')
+                        div(class="panel-heading clickable", data-toggle="collapse", href="#collapse#{itemIndex}")
+                           div.row.panel-title
+                              div.col-md-4.displayInline
+                                 img(class='img-responsive weatherIcon', src=day.icon_url)
+                              div.col-md-8.displayInline
+                                 h3=weekday == day.date.weekday ? 'Now' : day.date.weekday
+                                 h4=day.high.celsius
+                                    =' to '
+                                    =day.low.celsius + ' C'
+
+                        div(id='collapse#{itemIndex}', class='panel-collapse collapse animated flipInX')
+                           - animationInex++
+                           div.panel-body
+                              h3=day.conditions
+                              p
+                                 =forecast.txt_forecast.forecastday[itemIndex + itemIndex].fcttext_metric
             
-            div(class='row containerDiv')
+            div(class='row containerDiv panel-group', id='accordion')
                each day in forecast.simpleforecast.forecastday
                   +item(day)
+                  - itemIndex++;

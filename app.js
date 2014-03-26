@@ -15,12 +15,11 @@ app.configure(function () {
 });
 
 app.get('/', function (req, res) {
-   
-   res.writeHead(307, {
-      Location: '/UK/London'
-   });
+   res.render('index');
+});
 
-   res.end();
+app.get('/:countryCd', function (req, res) {
+   res.render('index');
 });
 
 app.get('/:countryCd/:city', function (req, res) {

@@ -11,7 +11,7 @@ var animationsArray = ['bounce', 'flash', 'pulse', 'rubberBand', 'shake', 'swing
 // gets 9 random animations from the array to apply on different parts of the page
 function getAnimations() {
    var ret = [];
-   for(var i = 0; i < 9; i++) {
+   for(var i = 0; i < 5; i++) {
       ret.push(animationsArray[Math.floor(Math.random() * (animationsArray.length))]);
    }
    return ret.toString();
